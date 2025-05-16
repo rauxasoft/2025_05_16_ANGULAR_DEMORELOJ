@@ -1,21 +1,3 @@
 <h1>Demo Reloj</h1>
 
-<h2>Total Segundos: {{ cronometro?.totalSegundos}}</h2>
-<h2>Estado: {{ cronometro?.estado }}</h2>
-<h2>Sentido: {{ cronometro?.sentido }}</h2>
-
-<hr>
-
-<button (click)="control.set('start')">Start</button>
-<button (click)="control.set('pause')">Pause</button>
-<button (click)="control.set('resume')">Resume</button>
-
-<button (click)="control.set('up')">UP</button>
-<button (click)="control.set('down')">DOWN</button>
-
-<button (click)="control.set('reset')">Reset</button>
-
-<app-crono-engine
-    [control]="control"
-    (evento)= "cronometro = $event" 
-/>
+<app-crono-console></app-crono-console>

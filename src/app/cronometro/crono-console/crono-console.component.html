@@ -1,0 +1,60 @@
+<section>
+
+    <!-- Display de tiempo -->
+
+    <h2>Tiempo: {{ cronometro?.totalSegundos }}</h2>
+
+    <!-- Indicador de estado -->
+
+    <p>Estado: {{ cronometro?.estado }}</p>
+
+    <!-- Indicador de sentido -->
+
+    <p>Sentido: {{ cronometro?.sentido }}</p>
+
+    <!-- Botonería de Control -->
+
+    <button 
+        (click)="control.set('start')"
+        [disabled]="cronometro?.estado !== 'STOPPED'">
+        Start
+    </button>
+
+    <button 
+        (click)="control.set('pause')"
+        [disabled]="cronometro?.estado !== 'RUNNING'">
+        Pause
+    </button>
+
+    <button 
+        (click)="control.set('resume')"
+        [disabled]="cronometro?.estado !== 'PAUSED'">
+        Resume
+    </button>
+
+    <button 
+        (click)="control.set('up')"
+        [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'UP'">
+        UP
+    </button>
+    
+    <button 
+        (click)="control.set('down')"
+        [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'DOWN'">
+        DOWN
+    </button>
+
+    <button 
+        (click)="control.set('reset')"
+        [disabled]="cronometro?.estado === 'STOPPED'">
+        Reset
+    </button>
+
+    <!-- Motor -->
+
+    <app-crono-engine
+        [control]="control"
+        (evento)="cronometro = $event"
+    />
+
+</section>
