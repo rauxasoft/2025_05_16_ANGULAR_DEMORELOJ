@@ -1,4 +1,4 @@
-<section>
+<section class="console">
 
     <!-- Display de tiempo -->
 
@@ -14,47 +14,16 @@
 
     <!-- Botonería de Control -->
 
-    <button 
-        (click)="control.set('start')"
-        [disabled]="cronometro?.estado !== 'STOPPED'">
-        Start
-    </button>
-
-    <button 
-        (click)="control.set('pause')"
-        [disabled]="cronometro?.estado !== 'RUNNING'">
-        Pause
-    </button>
-
-    <button 
-        (click)="control.set('resume')"
-        [disabled]="cronometro?.estado !== 'PAUSED'">
-        Resume
-    </button>
-
-    <button 
-        (click)="control.set('up')"
-        [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'UP'">
-        UP
-    </button>
-    
-    <button 
-        (click)="control.set('down')"
-        [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'DOWN'">
-        DOWN
-    </button>
-
-    <button 
-        (click)="control.set('reset')"
-        [disabled]="cronometro?.estado === 'STOPPED'">
-        Reset
-    </button>
-
+    <div class="button-bar">
+        <button class="btn-start" (click)="control.set('start')" [disabled]="cronometro?.estado !== 'STOPPED'">Start</button>
+        <button class="btn-pause" (click)="control.set('pause')" [disabled]="cronometro?.estado !== 'RUNNING'">Pause</button>
+        <button class="btn-resume" (click)="control.set('resume')" [disabled]="cronometro?.estado !== 'PAUSED'">Resume</button>
+        <button class="btn-up" (click)="control.set('up')" [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'UP'">UP</button>
+        <button class="btn-down" (click)="control.set('down')" [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'DOWN'">DOWN</button>
+        <button class="btn-reset" (click)="control.set('reset')" [disabled]="cronometro?.estado === 'STOPPED'">Reset</button>
+    </div>
     <!-- Motor -->
 
-    <app-crono-engine
-        [control]="control"
-        (evento)="cronometro = $event"
-    />
+    <app-crono-engine [control]="control" (evento)="cronometro = $event"/>
 
 </section>
