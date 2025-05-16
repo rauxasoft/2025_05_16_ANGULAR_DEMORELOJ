@@ -62,9 +62,9 @@ export class CronoEngineComponent {
         this.reset();
       } else {
         this.totalSeconds.update((totalSeconds) => totalSeconds + this.direction());
-        console.log(this.totalSeconds());
+        // console.log(this.totalSeconds());
       }
-    }, 500);
+    }, 1000);
   }
 
   private reset(){

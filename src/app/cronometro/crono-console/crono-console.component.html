@@ -1,28 +1,31 @@
 <section class="console">
 
-    <!-- Display de tiempo -->
+    <h2> 
+        @if(config.formatoTiempo === 'completo') {
+            <span class="display">{{ getDisplay() }}</span>
+        } @else {
+            Tiempo: {{ cronometro?.totalSegundos }}
+        }
+    </h2>
 
-    <h2>Tiempo: {{ cronometro?.totalSegundos }}</h2>
+    @if(config.mostrarEstado) {
+        <p>Estado: {{ cronometro?.estado }}</p>
+    }
 
-    <!-- Indicador de estado -->
-
-    <p>Estado: {{ cronometro?.estado }}</p>
-
-    <!-- Indicador de sentido -->
-
-    <p>Sentido: {{ cronometro?.sentido }}</p>
-
-    <!-- Botonería de Control -->
-
-    <div class="button-bar">
-        <button class="btn-start" (click)="control.set('start')" [disabled]="cronometro?.estado !== 'STOPPED'">Start</button>
-        <button class="btn-pause" (click)="control.set('pause')" [disabled]="cronometro?.estado !== 'RUNNING'">Pause</button>
-        <button class="btn-resume" (click)="control.set('resume')" [disabled]="cronometro?.estado !== 'PAUSED'">Resume</button>
-        <button class="btn-up" (click)="control.set('up')" [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'UP'">UP</button>
-        <button class="btn-down" (click)="control.set('down')" [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'DOWN'">DOWN</button>
-        <button class="btn-reset" (click)="control.set('reset')" [disabled]="cronometro?.estado === 'STOPPED'">Reset</button>
-    </div>
-    <!-- Motor -->
+    @if(config.mostrarSentido) {
+        <p>Sentido: {{ cronometro?.sentido }}</p>
+    }
+ 
+    @if(config.mostrarBotones) {
+        <div class="button-bar">
+            <button class="btn-start" (click)="control.set('start')" [disabled]="cronometro?.estado !== 'STOPPED'">{{ config.botones.start }}</button>
+            <button class="btn-pause" (click)="control.set('pause')" [disabled]="cronometro?.estado !== 'RUNNING'">{{ config.botones.pause }}</button>
+            <button class="btn-resume" (click)="control.set('resume')" [disabled]="cronometro?.estado !== 'PAUSED'">{{ config.botones.resume }}</button>
+            <button class="btn-up" (click)="control.set('up')" [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'UP'">{{ config.botones.up }}</button>
+            <button class="btn-down" (click)="control.set('down')" [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'DOWN'">{{ config.botones.down }}</button>
+            <button class="btn-reset" (click)="control.set('reset')" [disabled]="cronometro?.estado === 'STOPPED'">{{ config.botones.reset }}</button>
+        </div>
+    }
 
     <app-crono-engine [control]="control" (evento)="cronometro = $event"/>
 

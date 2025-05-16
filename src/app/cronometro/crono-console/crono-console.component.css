@@ -6,6 +6,11 @@
   font-family: sans-serif;
 }
 
+.display {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
 /* Botones */
 button {
   margin: 2px;

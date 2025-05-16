@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CronoConsoleComponent } from "./cronometro/crono-console/crono-console.component";
+import { CronoConsoleConfig } from './cronometro/crono-console/crono-console-config';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,16 @@ import { CronoConsoleComponent } from "./cronometro/crono-console/crono-console.
 })
 export class AppComponent {
 
+  configuracion: CronoConsoleConfig = {
+    mostrarEstado: false,
+    mostrarSentido: false,
+    mostrarBotones: true,
+    formatoTiempo: 'completo',
+    botones: {
+      start: 'Iniciar',
+      pause: 'Pausar',
+      resume: 'Reanudar',
+      reset: 'Resetear'
+    }
+  };
 }
