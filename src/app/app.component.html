@@ -1,8 +1,8 @@
 <h1>Demo Reloj</h1>
 
-<h2>Total Segundos: {{ totalSegundos}}</h2>
-<h2>Estado: {{ estado }}</h2>
-<h2>Sentido: {{ sentido }}</h2>
+<h2>Total Segundos: {{ cronometro?.totalSegundos}}</h2>
+<h2>Estado: {{ cronometro?.estado }}</h2>
+<h2>Sentido: {{ cronometro?.sentido }}</h2>
 
 <hr>
 
@@ -17,8 +17,5 @@
 
 <app-crono-engine
     [control]="control"
-    (totalSegundos)= "totalSegundos = $event" 
-    (estado) = "estado = $event" 
-    (sentido) = "sentido = $event"
-
+    (evento)= "cronometro = $event" 
 />

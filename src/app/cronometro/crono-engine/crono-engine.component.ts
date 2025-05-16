@@ -1,4 +1,5 @@
 import { Component, effect, input, output, signal, WritableSignal } from '@angular/core';
+import { ChronoEvent } from '../chrono-event.model';
 
 @Component({
   selector: 'app-crono-engine',
@@ -11,15 +12,10 @@ export class CronoEngineComponent {
   private direction = signal<number>(1);
 
   control = input<WritableSignal<'start' | 'pause' | 'resume' | 'reset' | 'up' | 'down'>>();
-
-  totalSegundos = output<number>();
-  estado = output<string>();
-  sentido = output<string>();
+  evento = output<ChronoEvent>();
 
   constructor(){
     
-    // Reacciona a los cambios de la señal de control
-
     effect(() => {
 
       const controlSignal = this.control();
@@ -37,28 +33,17 @@ export class CronoEngineComponent {
       }  
     });
 
-    // Emite el tiempo cada vez que cambia
-
     effect(() => {
-      this.totalSegundos.emit(this.totalSeconds()); 
+      this.evento.emit({
+        totalSegundos: this.totalSeconds(),
+        estado: this.state(),
+        sentido: this.direction() === 1 ? 'UP' : 'DOWN'
+      });
     });
-
-    // Emite el estado cada vez que cambia
-
-    effect(() => {
-      this.estado.emit(this.state());
-    });
-
-    // Emite el sentido cada vez que cambia
-
-    effect(() => {
-      this.sentido.emit(this.direction() === 1 ? 'UP' : 'DOWN');
-    });
-
+    
   }
 
   private start(){
-    console.log('start');
     clearInterval(this.intervalId);
     this.totalSeconds.set(0);
     this.direction.set(1);
@@ -66,31 +51,23 @@ export class CronoEngineComponent {
   }
 
   private pause(){
-    console.log('pause');
     clearInterval(this.intervalId);
     this.state.set('PAUSED');
   }
 
   private resume(){
-    
-    console.log('resume');
-
     this.state.set('RUNNING');
     this.intervalId = setInterval(() => {
-
       if (this.totalSeconds() === 0 && this.direction() === -1){
         this.reset();
       } else {
         this.totalSeconds.update((totalSeconds) => totalSeconds + this.direction());
         console.log(this.totalSeconds());
       }
-
     }, 500);
-
   }
 
   private reset(){
-    console.log('reset');
     clearInterval(this.intervalId);
     this.state.set('STOPPED');
     this.direction.set(1);

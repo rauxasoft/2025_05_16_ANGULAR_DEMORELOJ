@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { CronoEngineComponent } from './cronometro/crono-engine/crono-engine.component';
+import { ChronoEvent } from './cronometro/chrono-event.model';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,5 @@ import { CronoEngineComponent } from './cronometro/crono-engine/crono-engine.com
 })
 export class AppComponent {
   control = signal<'start' | 'pause' | 'resume' | 'reset' | 'up' | 'down'>('reset');
-  totalSegundos = 0;
-  estado = '';
-  sentido = '';
+  cronometro?: ChronoEvent;
 }
