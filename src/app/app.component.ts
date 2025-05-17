@@ -22,4 +22,17 @@ export class AppComponent {
       reset: 'Resetear'
     }
   };
+
+    configuracion1: CronoConsoleConfig = {
+    mostrarEstado: true,
+    mostrarSentido: true,
+    mostrarBotones: true,
+    formatoTiempo: 'completo',
+    botones: {
+      start: 'Iniciar',
+      pause: 'Pausar',
+      resume: 'Reanudar',
+      reset: 'Resetear'
+    }
+  };
 }
