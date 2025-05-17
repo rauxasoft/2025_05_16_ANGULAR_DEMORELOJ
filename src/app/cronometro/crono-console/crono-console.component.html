@@ -18,12 +18,12 @@
  
     @if(config.mostrarBotones) {
         <div class="button-bar">
-            <button class="btn-start" (click)="control.set('start')" [disabled]="cronometro?.estado !== 'STOPPED'">{{ config.botones.start }}</button>
-            <button class="btn-pause" (click)="control.set('pause')" [disabled]="cronometro?.estado !== 'RUNNING'">{{ config.botones.pause }}</button>
-            <button class="btn-resume" (click)="control.set('resume')" [disabled]="cronometro?.estado !== 'PAUSED'">{{ config.botones.resume }}</button>
-            <button class="btn-up" (click)="control.set('up')" [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'UP'">{{ config.botones.up }}</button>
-            <button class="btn-down" (click)="control.set('down')" [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'DOWN'">{{ config.botones.down }}</button>
-            <button class="btn-reset" (click)="control.set('reset')" [disabled]="cronometro?.estado === 'STOPPED'">{{ config.botones.reset }}</button>
+            <button data-testid="start-btn" class="btn-start" (click)="control.set('start')" [disabled]="cronometro?.estado !== 'STOPPED'">{{ config.botones.start }}</button>
+            <button data-testid="pause-btn" class="btn-pause" (click)="control.set('pause')" [disabled]="cronometro?.estado !== 'RUNNING'">{{ config.botones.pause }}</button>
+            <button data-testid="resume-btn" class="btn-resume" (click)="control.set('resume')" [disabled]="cronometro?.estado !== 'PAUSED'">{{ config.botones.resume }}</button>
+            <button data-testid="up-btn" class="btn-up" (click)="control.set('up')" [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'UP'">{{ config.botones.up }}</button>
+            <button data-testid="down-btn" class="btn-down" (click)="control.set('down')" [disabled]="cronometro?.estado === 'STOPPED' || cronometro?.sentido === 'DOWN'">{{ config.botones.down }}</button>
+            <button data-testid="reset-btn" class="btn-reset" (click)="control.set('reset')" [disabled]="cronometro?.estado === 'STOPPED'">{{ config.botones.reset }}</button>
         </div>
     }
 

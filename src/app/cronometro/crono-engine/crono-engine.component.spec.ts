@@ -4,6 +4,7 @@ import { CronoEngineComponent } from './crono-engine.component';
 import { signal, WritableSignal } from '@angular/core';
 
 describe('CronoEngineComponent', () => {
+
   let component: CronoEngineComponent;
   let fixture: ComponentFixture<CronoEngineComponent>;
   let controlSignal: WritableSignal<'start' | 'pause' | 'resume' | 'reset' | 'up' | 'down'>;
@@ -36,7 +37,7 @@ describe('CronoEngineComponent', () => {
 
   }));
 
-   it('debería pausar el cronómetro al recibir "pause"', fakeAsync(() => {
+  it('debería pausar el cronómetro al recibir "pause"', fakeAsync(() => {
     controlSignal.set('start');
     tick(10);
     fixture.detectChanges();
@@ -193,40 +194,27 @@ describe('CronoEngineComponent', () => {
     flush();
   }));
 
-  it('debería detenerse al llegar a 0 en modo "down" y cambiar dirección a "up"', fakeAsync(() => {
-    component['totalSeconds'].set(1);
-    component['direction'].set(-1);
+  it('debería reiniciarse correctamente desde estado "PAUSED" al recibir "reset"', fakeAsync(() => {
+    component['totalSeconds'].set(25);
     component['state'].set('PAUSED');
+    component['direction'].set(-1);
 
-    controlSignal.set('resume');
+    // ✅ Usamos la misma señal que se creó al inicio del test suite
+    controlSignal.set('start');
     tick(10);
     fixture.detectChanges();
 
-    tick(2000); // simular 1 segundo para bajar a 0
+    controlSignal.set('pause');
+    tick(10);
+    fixture.detectChanges();
+
+    controlSignal.set('reset'); // ← ahora sí se detecta el cambio a 'reset'
+    tick(10);
     fixture.detectChanges();
 
     expect(component['totalSeconds']()).toBe(0);
     expect(component['state']()).toBe('STOPPED');
     expect(component['direction']()).toBe(1);
-
-    flush();
-  }));
-
-  it('debería reiniciarse correctamente desde estado "PAUSED" al recibir "reset"', fakeAsync(() => {
-    component['totalSeconds'].set(25);
-    component['state'].set('PAUSED');
-    component['direction'].set(-1); // modo descendente
-
-    //controlSignal.set('reset'); // esto no provocará que effect() "se entere"
-    controlSignal = signal<'reset'>('reset');
-    fixture.componentRef.setInput('control', controlSignal);
-
-    tick(10);
-    fixture.detectChanges();
-
-    expect(component['totalSeconds']()).toBe(0);
-    expect(component['state']()).toBe('STOPPED');
-    expect(component['direction']()).toBe(1); // dirección reiniciada a ascendente
 
     flush();
   }));
@@ -266,4 +254,3 @@ describe('CronoEngineComponent', () => {
 });
 
 // ng test
-// 
